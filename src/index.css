@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@keyframes wobble {
+  50% {
+    border-radius: 250px;
+  }
+}
