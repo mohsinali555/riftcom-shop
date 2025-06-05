@@ -1,4 +1,5 @@
 import Row from "../Common/Row";
+import Button from "../Common/Button";
 
 const HeroSection = () => {
   return (
