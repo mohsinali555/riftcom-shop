@@ -67,7 +67,7 @@ const ProductDetails = () => {
               <p className="text-[18px] text-black">{product?.description}</p>
             </Row>
             <div className=" w-full mt-[40px]">
-              <QtyContainer />
+              <QtyContainer data={product} />
             </div>
             <Button
               title="Add to Cart"
