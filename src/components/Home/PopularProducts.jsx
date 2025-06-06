@@ -1,9 +1,26 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Container from "../Common/Container";
 import Row from "../Common/Row";
 import { Link } from "react-router-dom";
+import client from "../../apis/endpoint";
+import apiEndpoints from "../../apis/endpoint";
 
 const PopularProducts = () => {
+  const [products, setProducts] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await client.get(apiEndpoints.products());
+      setProducts(response.data.docs);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Container>
       <Row className="justify-center my-[20px] uppercase">
@@ -17,19 +34,23 @@ const PopularProducts = () => {
             Explore new and popular styles
           </p>
         </div>
-        <Link to="/product-detail">
+        <Link to={`/product/${products[0]?._id}`}>
           <img
             className="w-[648px] h-[648px] object-cover cursor-pointer"
-            src="https://images.unsplash.com/photo-1593526424177-9c9c7f68d4f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fHQlMjBzaGlydHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+            src={products[0]?.img}
             alt="top popular"
           />
         </Link>
         <Row className="flex-wrap w-1/2 gap-[24px]">
-          {[...new Array(4)].map((_, idx) => (
-            <Link to="/product-detail" className="w-[46%] h-[312px]" key={idx}>
+          {products.slice(1).map((item, idx) => (
+            <Link
+              to={`/product/${(item, _id)}`}
+              className="w-[46%] h-[312px]"
+              key={item._id}
+            >
               <img
-                src="https://images.unsplash.com/photo-1593526424177-9c9c7f68d4f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fHQlMjBzaGlydHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-                alt="Product"
+                src={item.img}
+                alt={item.title}
                 className="w-[312px] h-full object-cover"
               />
             </Link>

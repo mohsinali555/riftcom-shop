@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Route path="/" component={Home} exact />
-      <Route path="/product-detail" component={ProductDetails} exact />
+      <Route path="/product/:id" component={ProductDetails} exact />
       <Route path="/cart" component={Cart} exact />
     </Router>
   );
