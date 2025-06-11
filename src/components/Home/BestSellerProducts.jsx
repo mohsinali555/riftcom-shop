@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import Container from "../Common/Container";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import client from "../../apis";
+import apiEndpoints from "../../apis/endpoint";
+import Container from "../common/Container";
 import Row from "../Common/Row";
 import ProductCard from "../ProductCard";
-import client from "../../apis/endpoint";
-import apiEndpoints from "../../apis/endpoint";
 
 const BestSellerProducts = () => {
   const [products, setProducts] = useState([]);
@@ -34,18 +36,18 @@ const BestSellerProducts = () => {
 
   return (
     <Container>
-      <h1 className="w-full text-center text-[30px] font-semibold text-[#1e2832] mt-[80px] mb-[40px] uppercase">
+      <h1 className="w-full text-center text-[30px] text-[#1e2832] font-semibold mt-[80px] mb-[40px] uppercase">
         Best Seller Products
       </h1>
       <Row className="items-center">
-        <p className="text-[16px] mr-[40px] cursor-pointer text-black  hover:text-[#757575]">
+        <p className="text-[16px] mr-[40px] cursor-pointer text-black font-bold hover:text-[#757575]">
           All Products
         </p>
         {categories.map((item) => (
           <p
             onClick={() => handleGetProduct(item._id)}
-            className="text-[16px] mr-[40px] cursor-pointer text-black  hover:text-[#757575]"
-            key={(item, _id)}
+            className="text-[16px] mr-[40px] cursor-pointer text-[#00000080] hover:text-[#757575]"
+            key={item._id}
           >
             {item.title}
           </p>
@@ -53,7 +55,7 @@ const BestSellerProducts = () => {
       </Row>
       <Row className="flex-wrap gap-[1%] mt-[40px]">
         {products.map((item) => (
-          <div className="w-[24%] mb-[20px]" key={(item, _id)}>
+          <div className="w-[24%] mb-[20px]" key={item._id}>
             <ProductCard data={item} />
           </div>
         ))}

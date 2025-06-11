@@ -2,8 +2,12 @@ import Layout from "../components/Common/Layout";
 import Container from "../components/Common/Container";
 import Row from "../components/Common/Row";
 import CartItem from "../components/Cart/CartItem";
+import { useContext } from "react";
+import { CartContext } from "../contextAPIs";
 
 const Cart = () => {
+  const { cartItems } = useContext(CartContext);
+
   return (
     <Layout>
       <Container className="my-[40px]">
@@ -30,12 +34,9 @@ const Cart = () => {
               Total
             </h6>
           </Row>
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {cartItems.map((item) => (
+            <CartItem data={item} key={item._id} />
+          ))}
         </Row>
       </Container>
     </Layout>
