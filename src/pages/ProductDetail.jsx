@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../components/Common/Button";
 import Container from "../components/Common/Container";
@@ -7,8 +7,11 @@ import QtyContainer from "../components/Common/QtyContainer";
 import Row from "../components/Common/Row";
 import client from "../apis";
 import apiEndpoints from "../apis/endpoint";
+import { CartContext } from "../contextAPIs";
 
 const ProductDetails = () => {
+  const { handleInc } = useContext(CartContext);
+
   const [product, setProduct] = useState();
   const { id } = useParams();
 
@@ -70,6 +73,7 @@ const ProductDetails = () => {
               <QtyContainer data={product} />
             </div>
             <Button
+              onClick={() => handleInc(product)}
               title="Add to Cart"
               className="h-[52px] w-[174px] mt-[20px]"
             />

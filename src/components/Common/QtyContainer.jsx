@@ -1,32 +1,24 @@
 import Row from "./Row";
 import Button from "./Button";
-import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../contextAPIs";
 
 const QtyContainer = ({ data }) => {
-  const [qty, setQty] = useState(0);
-
-  const handleClickDec = () => {
-    setQty((prev) => {
-      if (prev > 0) {
-        return --prev;
-      }
-      return prev;
-    });
-  };
-  const handleClickInc = () => {
-    setQty((prev) => ++prev);
-  };
+  const { cartItems, handleInc, handleDec } = useContext(CartContext);
+  const cartItem = cartItems.find((item) => item._id === data?._id);
 
   return (
     <Row className="items-center">
       <Button
-        onClick={handleClickDec}
+        onClick={() => handleDec(data)}
         title="-"
         className="w-[52px] h-[52px]"
       />
-      <p className="w-[70px] text-center text-[16px] font-semibold">{qty}</p>
+      <p className="w-[70px] text-center text-[16px] font-semibold">
+        {cartItem?.qty || 0}
+      </p>
       <Button
-        onClick={handleClickInc}
+        onClick={() => handleInc(data)}
         title="+"
         className="w-[52px] h-[52px]"
       />
