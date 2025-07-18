@@ -8,6 +8,7 @@ import { useState } from "react";
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
+  // create function to handle increase
   const handleInc = (product) => {
     const prod = cartItems.find((item) => item._id === product._id);
     if (!prod) {
@@ -20,6 +21,7 @@ function App() {
     setCartItems(_items);
   };
 
+  // create function to handle decrease
   const handleDec = (product) => {
     if (product.qty > 1) {
       const _items = cartItems.map((item) => ({
@@ -34,8 +36,6 @@ function App() {
     _cartItms.splice(idx, 1);
     setCartItems(_cartItms);
   };
-
-  console.log(cartItems);
 
   return (
     <CartContext.Provider value={{ cartItems, handleInc, handleDec }}>
